@@ -2,19 +2,19 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Parallel Execution') {
             steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                parallel(
+                    a:{
+                      echo "Building"
+                    },
+                    b:{
+                        echo "Testing"
+                    },
+                    c:{
+                        echo "Deploying"
+                    }
+                    )
             }
         }
         stage('Email Build Status') {
